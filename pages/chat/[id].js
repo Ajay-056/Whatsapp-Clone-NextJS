@@ -5,9 +5,19 @@ import Sidebar from '../../components/Sidebar';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../../firebase';
 import getRecipientEmail from '../../utils/getRecipientEmail';
+import { useRef } from 'react';
 
 function Chat({ chat, messages }) {
   const [user] = useAuthState(auth);
+
+  const endOfMessagesRef = useRef(null);
+
+  const scrollToBottom = () => {
+    endOfMessagesRef.current.scrollIntoView({
+      behaviour: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <Container>
@@ -20,8 +30,9 @@ function Chat({ chat, messages }) {
         </title>
       </Head>
       <Sidebar />
-      <ChatContainer>
+      <ChatContainer onLoad={scrollToBottom}>
         <ChatScreen chat={chat} messages={messages} />
+        <EndOfMessage ref={endOfMessagesRef} />
       </ChatContainer>
     </Container>
   );
@@ -68,7 +79,8 @@ const Container = styled.div`
 
 const ChatContainer = styled.div`
   flex: 1;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 100vh;
 
   ::-webkit-srollbar {
@@ -78,3 +90,5 @@ const ChatContainer = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;
+
+const EndOfMessage = styled.div``;

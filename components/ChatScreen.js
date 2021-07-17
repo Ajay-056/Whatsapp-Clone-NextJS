@@ -114,10 +114,10 @@ function ChatScreen({ chat, messages }) {
         </HeaderInfo>
         <HeaderIcons>
           <IconButton>
-            <AttachFileIcon />
+            <AttachFileIcon style={{ fontSize: 25 }} />
           </IconButton>
           <IconButton>
-            <MoreVertIcon />
+            <MoreVertIcon style={{ fontSize: 25 }} />
           </IconButton>
         </HeaderIcons>
       </Header>
@@ -128,12 +128,21 @@ function ChatScreen({ chat, messages }) {
       </MessageContainer>
 
       <InputContainer>
-        <InsertEmoticonIcon />
-        <Input value={input} onChange={(e) => setInput(e.target.value)} />
+        <IconButton>
+          <InsertEmoticonIcon style={{ fontSize: 25 }} />
+        </IconButton>
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          autoFocus
+        />
         <button hidden disabled={!input} type="submit" onClick={sendMessage}>
           Send Message
         </button>
-        <MicIcon />
+        <IconButton>
+          <MicIcon style={{ fontSize: 25 }} />
+        </IconButton>
       </InputContainer>
     </Container>
   );
@@ -141,9 +150,7 @@ function ChatScreen({ chat, messages }) {
 
 export default ChatScreen;
 
-const Container = styled.div`
-  /* overflow: none; */
-`;
+const Container = styled.div``;
 
 const Header = styled.div`
   position: sticky;
@@ -152,7 +159,7 @@ const Header = styled.div`
   top: 0;
   display: flex;
   padding: 1.1rem;
-  height: 8rem;
+  height: 7rem;
   align-items: center;
   border-bottom: 1px solid whitesmoke;
 `;
@@ -163,10 +170,12 @@ const HeaderInfo = styled.div`
 
   > h3 {
     margin-bottom: 0.3rem;
+    color: #495057;
+    font-size: 1.35rem;
   }
 
   > p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: gray;
   }
 `;
@@ -197,9 +206,10 @@ const Input = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  border-radius: 1rem;
+  border-radius: 3rem;
   align-items: center;
-  padding: 2rem;
+  padding: 1.3rem;
+  font-size: 1.55rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   background-color: whitesmoke;

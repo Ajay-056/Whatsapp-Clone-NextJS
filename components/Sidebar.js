@@ -1,4 +1,4 @@
-import { Avatar, Button, IconButton } from '@material-ui/core';
+import { Avatar, IconButton } from '@material-ui/core';
 import styled from 'styled-components';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 import Chat from './Chat';
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 
 function Sidebar() {
   const [user] = useAuthState(auth);
@@ -46,20 +47,28 @@ function Sidebar() {
 
         <IconsContainer>
           <IconButton>
-            <ChatIcon />
+            <ChatIcon style={{ fontSize: 22 }} />
           </IconButton>
           <IconButton>
-            <MoreVertIcon />
+            <MoreVertIcon style={{ fontSize: 22 }} />
           </IconButton>
         </IconsContainer>
       </Header>
 
       <Search>
-        <SearchIcon />
-        <SearchInput placeholder="Search in chats" />
+        <SearchIcon style={{ fontSize: 22, marginRight: '1rem' }} />
+        <SearchInput placeholder="Search for chats..." />
+        {/* or Add Chat (s) by Gmail */}
       </Search>
 
-      <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
+      <SidebarButton>
+        {/* <IconButton> */}
+        <AddCircleRoundedIcon
+          style={{ fontSize: 58, color: '#25D366' }}
+          onClick={createChat}
+        />
+        {/* </IconButton> */}
+      </SidebarButton>
 
       {/* List of Chats */}
       {chatsSnapshot?.docs.map((chat) => (
@@ -78,6 +87,7 @@ const Container = styled.div`
   min-width: 30rem;
   max-width: 35rem;
   overflow-y: scroll;
+  position: relative;
 
   ::-webkit-scrollbar {
     display: none;
@@ -94,18 +104,28 @@ const Search = styled.div`
   border-radius: 0.2rem;
 `;
 
-const SidebarButton = styled(Button)`
-  width: 100%;
-  &&& {
-    border-top: 1px solid whitesmoke;
-    border-bottom: 1px solid whitesmoke;
-  }
+const SidebarButton = styled.button`
+  position: absolute;
+  bottom: 1.85rem;
+  right: 2rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  outline: none;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
 `;
 
 const SearchInput = styled.input`
   outline: none;
   border: none;
   flex: 1;
+  font-size: 1.5rem;
 `;
 
 const Header = styled.div`
@@ -117,7 +137,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  height: 8rem;
+  height: 7rem;
   border-bottom: 1px solid whitesmoke;
 `;
 

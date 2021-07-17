@@ -1,5 +1,3 @@
-// import Image from 'next/image';
-// import React from 'react';
 import Image from 'next/image';
 import { Circle } from 'better-react-spinkit';
 import profilePic from '../public/580b57fcd9996e24bc43c543.png';
