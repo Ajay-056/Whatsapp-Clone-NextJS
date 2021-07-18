@@ -1,12 +1,16 @@
 import firebase from 'firebase';
+import dotenv from 'dotenv';
+// import fs from 'fs';
+
+dotenv.config({ path: './config.env' });
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBv5SOctlXP-ZxE9u0DK56Gm9NjaePuCys',
-  authDomain: 'whatsapp-clone-2-46b12.firebaseapp.com',
-  projectId: 'whatsapp-clone-2-46b12',
-  storageBucket: 'whatsapp-clone-2-46b12.appspot.com',
-  messagingSenderId: '870994799125',
-  appId: '1:870994799125:web:db8e6c1bced34d50f2bc1c',
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGE_SENDER_ID,
+  appId: process.env.APP_ID,
 };
 
 const app = !firebase.apps.length
