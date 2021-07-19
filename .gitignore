@@ -8,6 +8,9 @@
 # ENV Variables
 .env.local
 
+# Package Lock
+package-lock.json
+
 # testing
 /coverage
 
