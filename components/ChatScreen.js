@@ -108,7 +108,7 @@ function ChatScreen({ chat, messages }) {
         <HeaderInfo>
           <h3>{surname[0]}</h3>
           <Typing>
-            {temp === true && TypeOfMessage !== 'Reciever' ? 'Typing...' : ''}
+            {temp === true && TypeOfMessage !== 'Sender' ? 'Typing...' : ''}
           </Typing>
           {recipientSnapshot ? (
             <p>
