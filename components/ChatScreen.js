@@ -104,7 +104,7 @@ function ChatScreen({ chat, messages }) {
 
   finder();
 
-  const TypeOfMessage = dual === user.email ? 'Sender' : 'Reciever';
+  const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
   console.log(TypeOfMessage);
 
