@@ -89,10 +89,19 @@ function ChatScreen({ chat, messages }) {
   const recipient = recipientSnapshot?.docs?.[0]?.data();
   const recipientEmail = getRecipientEmail(chat.users, user);
   const surname = recipientEmail.split('@');
+  const dual = '';
 
-  console.log(recipientEmail, user.email);
+  const finder = () => {
+    if (messagesSnapshot) {
+      messagesSnapshot.docs.map((message) => (dual = message.data().user));
+    } else {
+      JSON.parse(messages).map((message) => (dual = message.user));
+    }
+  };
 
-  const TypeOfMessage = recipientEmail === user.email ? 'Sender' : 'Reciever';
+  finder();
+
+  const TypeOfMessage = dual === user.email ? 'Sender' : 'Reciever';
 
   console.log(TypeOfMessage);
 
