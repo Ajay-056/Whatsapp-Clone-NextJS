@@ -15,6 +15,8 @@ import getRecipientEmail from '../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
 
 function ChatScreen({ chat, messages }) {
+  const [temp, setTemp] = useState(false);
+
   const [user] = useAuthState(auth);
 
   const [input, setInput] = useState('');
@@ -88,6 +90,12 @@ function ChatScreen({ chat, messages }) {
   const recipientEmail = getRecipientEmail(chat.users, user);
   const surname = recipientEmail.split('@');
 
+  console.log(recipientEmail, user.email);
+
+  const TypeOfMessage = recipientEmail === user.email ? 'Sender' : 'Reciever';
+
+  console.log(TypeOfMessage);
+
   return (
     <Container>
       <Header>
@@ -99,6 +107,9 @@ function ChatScreen({ chat, messages }) {
 
         <HeaderInfo>
           <h3>{surname[0]}</h3>
+          <Typing>
+            {temp === true && TypeOfMessage !== 'Reciever' ? 'Typing...' : ''}
+          </Typing>
           {recipientSnapshot ? (
             <p>
               Last Active:{' '}
@@ -134,6 +145,8 @@ function ChatScreen({ chat, messages }) {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={() => setTemp(true)}
+          onKeyUp={() => setTimeout(() => setTemp(false), 3100)}
           placeholder="Type a message..."
           autoFocus
         />
@@ -213,4 +226,11 @@ const Input = styled.input`
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   background-color: whitesmoke;
+`;
+
+const Typing = styled.div`
+  color: #25d366;
+  font-weight: bold;
+  font-size: 1.3rem;
+  /* margin: 0.2rem 0; */
 `;
