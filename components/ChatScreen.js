@@ -17,6 +17,8 @@ import TimeAgo from 'timeago-react';
 function ChatScreen({ chat, messages }) {
   const [temp, setTemp] = useState(false);
 
+  const [dual, setDual] = useState('');
+
   const [user] = useAuthState(auth);
 
   const [input, setInput] = useState('');
@@ -89,13 +91,14 @@ function ChatScreen({ chat, messages }) {
   const recipient = recipientSnapshot?.docs?.[0]?.data();
   const recipientEmail = getRecipientEmail(chat.users, user);
   const surname = recipientEmail.split('@');
-  const dual = '';
 
   const finder = () => {
     if (messagesSnapshot) {
-      messagesSnapshot.docs.map((message) => (dual = message.data().user));
+      messagesSnapshot.docs.map(
+        (message) => () => setDual(message.data().user)
+      );
     } else {
-      JSON.parse(messages).map((message) => (dual = message.user));
+      JSON.parse(messages).map((message) => () => setDual(message.user));
     }
   };
 
