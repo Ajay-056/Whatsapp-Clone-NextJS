@@ -13,8 +13,14 @@ import firebase from 'firebase';
 import { useState, useRef } from 'react';
 import getRecipientEmail from '../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 function ChatScreen({ chat, messages }) {
+  let emojiPicker;
+
+  const [emojiPickerState, SetEmojiPicker] = useState(false);
+
   const [temp, setTemp] = useState(false);
 
   const [dual, setDual] = useState('');
@@ -40,6 +46,21 @@ function ChatScreen({ chat, messages }) {
       .collection('users')
       .where('email', '==', getRecipientEmail(chat.users, user))
   );
+
+  if (emojiPickerState) {
+    emojiPicker = (
+      <Picker
+        title="Pick your emoji . . . "
+        emoji="point_up"
+        onSelect={(emoji) => setInput(input + emoji.native)}
+      />
+    );
+  }
+
+  function triggerPicker(event) {
+    event.preventDefault();
+    SetEmojiPicker(!emojiPickerState);
+  }
 
   const showMessages = () => {
     if (messagesSnapshot) {
@@ -106,8 +127,6 @@ function ChatScreen({ chat, messages }) {
 
   const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
-  console.log(TypeOfMessage);
-
   return (
     <Container>
       <Header>
@@ -151,8 +170,12 @@ function ChatScreen({ chat, messages }) {
       </MessageContainer>
 
       <InputContainer>
-        <IconButton>
-          <InsertEmoticonIcon style={{ fontSize: 25 }} />
+        <IconContainer>{emojiPicker}</IconContainer>
+        <IconButton onClick={triggerPicker}>
+          <InsertEmoticonIcon
+            style={{ fontSize: 25 }}
+            // onMouseLeave={triggerPicker1}
+          />
         </IconButton>
         <Input
           value={input}
@@ -206,7 +229,7 @@ const HeaderInfo = styled.div`
 `;
 
 const EndOfMessage = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 6.5rem;
 `;
 
 const HeaderIcons = styled.div``;
@@ -245,4 +268,11 @@ const Typing = styled.div`
   font-weight: bold;
   font-size: 1.3rem;
   /* margin: 0.2rem 0; */
+`;
+
+const IconContainer = styled.div`
+  position: absolute;
+  top: -45rem;
+  left: 2rem;
+  right: 0;
 `;
