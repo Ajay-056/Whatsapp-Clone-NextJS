@@ -1,17 +1,22 @@
 import { Avatar, IconButton } from '@material-ui/core';
 import styled from 'styled-components';
-import ChatIcon from '@material-ui/icons/Chat';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as EmailValidator from 'email-validator';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 import Chat from './Chat';
+import { useRouter } from 'next/dist/client/router';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 
 function Sidebar() {
   const [user] = useAuthState(auth);
+
+  const router = useRouter();
+
   const userChatRef = db
     .collection('chats')
     .where('users', 'array-contains', user.email);
@@ -40,17 +45,27 @@ function Sidebar() {
         chat.data().users.find((user) => user === recipientEmail)?.length > 0
     );
 
+  const goToHome = () => {
+    router.push(`/`);
+  };
+
   return (
     <Container>
       <Header>
-        <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
+        <UserAvatar src={user.photoURL} />
 
         <IconsContainer>
           <IconButton>
-            <ChatIcon style={{ fontSize: 22 }} />
+            <HomeOutlinedIcon style={{ fontSize: 25 }} onClick={goToHome} />
           </IconButton>
-          <IconButton>
+          {/* <IconButton>
             <MoreVertIcon style={{ fontSize: 22 }} />
+          </IconButton> */}
+          <IconButton>
+            <ExitToAppIcon
+              style={{ fontSize: 25 }}
+              onClick={() => auth.signOut()}
+            />
           </IconButton>
         </IconsContainer>
       </Header>

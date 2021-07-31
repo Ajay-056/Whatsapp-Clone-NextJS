@@ -26,7 +26,10 @@ function Chat({ id, users }) {
   const recipientData = recipientSnapshot?.docs?.[0]?.data();
 
   return (
-    <Container onClick={enterChat}>
+    <Container
+      onClick={enterChat}
+      style={recipientEmail === 'xyz@gmail.com' ? hide : show}
+    >
       {recipientData ? (
         <UserAvatar src={recipientData?.photoURL} />
       ) : (
@@ -39,6 +42,12 @@ function Chat({ id, users }) {
 
 export default Chat;
 
+const hide = {
+  display: 'none',
+};
+const show = {
+  display: 'flex',
+};
 const Container = styled.div`
   display: flex;
   align-items: center;
