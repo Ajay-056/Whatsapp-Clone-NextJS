@@ -1,7 +1,7 @@
 import { Avatar, IconButton } from '@material-ui/core';
 import styled from 'styled-components';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as EmailValidator from 'email-validator';
@@ -11,11 +11,17 @@ import { auth, db } from '../firebase';
 import Chat from './Chat';
 import { useRouter } from 'next/dist/client/router';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import getRecipientEmail from '../utils/getRecipientEmail';
+import { useState } from 'react';
 
 function Sidebar() {
   const [user] = useAuthState(auth);
 
+  const [match, setMatch] = useState('');
+
   const router = useRouter();
+
+  const chatSearchObj = {};
 
   const userChatRef = db
     .collection('chats')
@@ -45,8 +51,26 @@ function Sidebar() {
         chat.data().users.find((user) => user === recipientEmail)?.length > 0
     );
 
+  chatsSnapshot?.docs.map((chat) => {
+    chatSearchObj[getRecipientEmail(chat.data().users, user)] = true;
+  });
+
   const goToHome = () => {
     router.push(`/`);
+  };
+
+  const searchChats = (searchTerm) => {
+    const LCST = searchTerm.toLowerCase();
+
+    for (const key in chatSearchObj) {
+      if (key.indexOf(LCST) > -1) {
+        chatSearchObj[key] = true;
+        setMatch(chatSearchObj);
+      } else {
+        chatSearchObj[key] = false;
+        setMatch(chatSearchObj);
+      }
+    }
   };
 
   return (
@@ -72,7 +96,10 @@ function Sidebar() {
 
       <Search>
         <SearchIcon style={{ fontSize: 22, marginRight: '1rem' }} />
-        <SearchInput placeholder="Search for chats..." />
+        <SearchInput
+          placeholder="Search for chats..."
+          onInput={(e) => searchChats(e.target.value)}
+        />
         {/* or Add Chat (s) by Gmail */}
       </Search>
 
@@ -87,7 +114,7 @@ function Sidebar() {
 
       {/* List of Chats */}
       {chatsSnapshot?.docs.map((chat) => (
-        <Chat key={chat.id} id={chat.id} users={chat.data().users} />
+        <Chat key={chat.id} id={chat.id} users={chat.data().users} mh={match} />
       ))}
     </Container>
   );

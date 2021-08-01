@@ -6,8 +6,12 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import getRecipientEmail from '../utils/getRecipientEmail';
 import { useRouter } from 'next/dist/client/router';
 
-function Chat({ id, users }) {
+function Chat({ id, users, mh }) {
   const router = useRouter();
+
+  const falseArray = [];
+
+  const keys = Object.keys(mh);
 
   const [user] = useAuthState(auth);
 
@@ -25,10 +29,16 @@ function Chat({ id, users }) {
 
   const recipientData = recipientSnapshot?.docs?.[0]?.data();
 
+  keys.forEach((key) => {
+    if (mh[key] === false) {
+      falseArray.push(key);
+    }
+  });
+
   return (
     <Container
       onClick={enterChat}
-      style={recipientEmail === 'xyz@gmail.com' ? hide : show}
+      style={falseArray.includes(recipientEmail) ? hide : show}
     >
       {recipientData ? (
         <UserAvatar src={recipientData?.photoURL} />
