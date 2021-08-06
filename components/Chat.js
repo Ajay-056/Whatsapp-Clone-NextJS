@@ -22,19 +22,19 @@ function Chat({ id, users, mh }) {
     router.push(`/chat/${id}`);
   };
 
-  const openMenu = (e) => {
-    var x = e.clientX - e.target.offsetLeft + 10;
-    var y = e.clientY - e.target.offsetTop + 10;
-    // console.log(e.target);
-    const menu = document.querySelector('.mc');
-    menu.style.bottom = `${y}px`;
-    menu.style.left = `${x}px`;
-    if (menu.style.display === 'none') {
-      menu.style.display = 'flex';
-    } else {
-      menu.style.display = 'none';
-    }
-  };
+  // const openMenu = (e) => {
+  //   var x = e.clientX - e.target.offsetLeft + 10;
+  //   var y = e.clientY - e.target.offsetTop + 10;
+  //   // console.log(e.target);
+  //   const menu = document.querySelector('.mc');
+  //   menu.style.bottom = `${y}px`;
+  //   menu.style.left = `${x}px`;
+  //   if (menu.style.display === 'none') {
+  //     menu.style.display = 'flex';
+  //   } else {
+  //     menu.style.display = 'none';
+  //   }
+  // };
 
   const userChatRef = db
     .collection('users')
@@ -67,8 +67,8 @@ function Chat({ id, users, mh }) {
             fontSize: 25,
             opacity: '0.6',
           }}
-          onClick={(e) => openMenu(e)}
         />
+        {/* onClick={(e) => openMenu(e)} */}
       </ArrowContainer>
 
       <MenuContainer className="mc">
