@@ -16,9 +16,13 @@ export default function Home() {
           <InfoBox>
             <h3
               style={{
-                textAlign: 'center',
-                margin: '2rem',
+                margin: '2rem 15rem -13px 15rem',
                 fontSize: '2.5rem',
+                border: '3.5px solid',
+                borderImageSlice: 1,
+                borderImageSource: 'linear-gradient(to left, #743ad5, #d53a9d)',
+                display: 'inline-block',
+                padding: '.6rem',
               }}
             >
               Hi There ! 👋👋👋
@@ -70,8 +74,9 @@ export default function Home() {
             >
               <li>Typing Indication</li>
               <li>Date Wise Chat Splitup</li>
+              <li>Delete Chat</li>
+              <li>Sort Chat list by recent message</li>
               <li>Mobile version</li>
-              <li></li>
             </ul>
           </InfoBox>
         </DefaultHome>
