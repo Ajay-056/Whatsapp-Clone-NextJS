@@ -6,6 +6,8 @@ import moment from 'moment';
 function Message({ user, message }) {
   const [userLoggedIn] = useAuthState(auth);
 
+  // console.log(moment(message.timestamp).format('LL'));
+
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Reciever;
 
   return (

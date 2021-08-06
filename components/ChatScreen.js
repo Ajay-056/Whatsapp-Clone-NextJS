@@ -15,9 +15,12 @@ import getRecipientEmail from '../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import moment from 'moment';
 
 function ChatScreen({ chat, messages }) {
   let emojiPicker;
+
+  const [tempDate, setTempDate] = useState('');
 
   const [emojiPickerState, SetEmojiPicker] = useState(false);
 
@@ -62,17 +65,43 @@ function ChatScreen({ chat, messages }) {
     SetEmojiPicker(!emojiPickerState);
   }
 
+  const groupMessageByDate = (messageDate) => {
+    (messageDate) => setTempDate(messageDate);
+    if (tempDate === messageDate) {
+      // console.log(tempDate, messageDate);
+      // console.log('true');
+      return true;
+    } else {
+      // console.log('false');
+      return false;
+    }
+  };
+
   const showMessages = () => {
     if (messagesSnapshot) {
       return messagesSnapshot.docs.map((message) => (
-        <Message
-          key={message.id}
-          user={message.data().user}
-          message={{
-            ...message.data(),
-            timestamp: message.data().timestamp?.toDate().getTime(),
-          }}
-        />
+        <>
+          {groupMessageByDate(
+            moment(message.data().timestamp?.toDate().getTime()).format('LL')
+          ) ? (
+            <DateIndictor>
+              {moment(message.data().timestamp?.toDate().getTime()).format(
+                'LL'
+              )}
+            </DateIndictor>
+          ) : (
+            ''
+          )}
+
+          <Message
+            key={message.id}
+            user={message.data().user}
+            message={{
+              ...message.data(),
+              timestamp: message.data().timestamp?.toDate().getTime(),
+            }}
+          />
+        </>
       ));
     } else {
       return JSON.parse(messages).map((message) => (
@@ -199,6 +228,17 @@ function ChatScreen({ chat, messages }) {
 export default ChatScreen;
 
 const Container = styled.div``;
+
+const DateIndictor = styled.div`
+  background-color: lightblue;
+  width: 8rem;
+  height: 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+`;
 
 const Header = styled.div`
   position: sticky;

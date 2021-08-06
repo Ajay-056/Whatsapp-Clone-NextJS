@@ -7,7 +7,7 @@ import { auth, db } from '../../firebase';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import { useRef } from 'react';
 
-function Chat({ chat, messages}) {
+function Chat({ chat, messages }) {
   const [user] = useAuthState(auth);
 
   const endOfMessagesRef = useRef(null);

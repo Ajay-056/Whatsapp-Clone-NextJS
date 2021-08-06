@@ -59,6 +59,15 @@ function Sidebar() {
     router.push(`/`);
   };
 
+  // const scrollSwitch = () => {
+  //   if (Object.keys(chatSearchObj).length > 6) {
+  //     console.log(Object.keys(chatSearchObj).length);
+  //     return 'hidden';
+  //   } else {
+  //     return 'scroll';
+  //   }
+  // };
+
   const searchChats = (searchTerm) => {
     const LCST = searchTerm.toLowerCase();
 
@@ -77,19 +86,16 @@ function Sidebar() {
     <Container>
       <Header>
         <UserAvatar src={user.photoURL} />
-
+        <h3 style={{ fontSize: 17, color: '#495057' }}>{user?.displayName}</h3>
         <IconsContainer>
-          <IconButton>
-            <HomeOutlinedIcon style={{ fontSize: 25 }} onClick={goToHome} />
+          <IconButton onClick={goToHome}>
+            <HomeOutlinedIcon style={{ fontSize: 25 }} />
           </IconButton>
           {/* <IconButton>
             <MoreVertIcon style={{ fontSize: 22 }} />
           </IconButton> */}
-          <IconButton>
-            <ExitToAppIcon
-              style={{ fontSize: 25 }}
-              onClick={() => auth.signOut()}
-            />
+          <IconButton onClick={() => auth.signOut()}>
+            <ExitToAppIcon style={{ fontSize: 25 }} />
           </IconButton>
         </IconsContainer>
       </Header>
@@ -103,6 +109,19 @@ function Sidebar() {
         {/* or Add Chat (s) by Gmail */}
       </Search>
 
+      <ChatList
+        style={Object.keys(chatSearchObj).length > 6 ? yscroll : yhidden}
+      >
+        {/* List of Chats */}
+        {chatsSnapshot?.docs.map((chat) => (
+          <Chat
+            key={chat.id}
+            id={chat.id}
+            users={chat.data().users}
+            mh={match}
+          />
+        ))}
+      </ChatList>
       <SidebarButton>
         {/* <IconButton> */}
         <AddCircleRoundedIcon
@@ -111,11 +130,6 @@ function Sidebar() {
         />
         {/* </IconButton> */}
       </SidebarButton>
-
-      {/* List of Chats */}
-      {chatsSnapshot?.docs.map((chat) => (
-        <Chat key={chat.id} id={chat.id} users={chat.data().users} mh={match} />
-      ))}
     </Container>
   );
 }
@@ -124,11 +138,11 @@ export default Sidebar;
 
 const Container = styled.div`
   flex: 0.45;
-  border-right: 1px solid whitesmoke;
+  border-right: 2.5px solid whitesmoke;
   height: 100vh;
   min-width: 30rem;
   max-width: 35rem;
-  overflow-y: scroll;
+  overflow-y: hidden;
   position: relative;
 
   ::-webkit-scrollbar {
@@ -144,12 +158,13 @@ const Search = styled.div`
   align-items: center;
   padding: 2rem;
   border-radius: 0.2rem;
+  background-color: #f1f3f5;
 `;
 
 const SidebarButton = styled.button`
   position: absolute;
   bottom: 1.85rem;
-  right: 2rem;
+  right: 3.5rem;
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
@@ -168,6 +183,12 @@ const SearchInput = styled.input`
   border: none;
   flex: 1;
   font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+`;
+
+const ChatList = styled.div`
+  height: calc(100vh - 147.6px);
 `;
 
 const Header = styled.div`
@@ -180,7 +201,7 @@ const Header = styled.div`
   align-items: center;
   padding: 1.5rem;
   height: 7rem;
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 2.5px solid whitesmoke;
 `;
 
 const UserAvatar = styled(Avatar)`
@@ -192,3 +213,11 @@ const UserAvatar = styled(Avatar)`
 `;
 
 const IconsContainer = styled.div``;
+
+const yhidden = {
+  overflowY: 'hidden',
+};
+
+const yscroll = {
+  overflowY: 'scroll',
+};
