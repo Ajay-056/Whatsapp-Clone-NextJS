@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -78,6 +79,61 @@ export default function Home() {
               <li>Sort Chat list by recent message</li>
               <li>Mobile version</li>
             </ul>
+            <p
+              style={{
+                borderBottom: '1px solid gray',
+                margin: '2.5rem 3rem 0 3rem',
+              }}
+            ></p>
+            <p
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                marginTop: '1rem',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+              }}
+            >
+              <a
+                href="https://github.com/Ajay-056/Whatsapp-Clone-NextJS"
+                onClick={() =>
+                  alert('Are You Sure want to leave without logout?')
+                }
+              >
+                <Image
+                  src="/icons8-github.svg"
+                  alt="github"
+                  height={40}
+                  width={40}
+                />
+              </a>
+              <a
+                href="https://www.twitter.com/balaajay19"
+                onClick={() =>
+                  alert('Are You Sure want to leave without logout?')
+                }
+              >
+                <Image
+                  src="/icons8-twitter-48.png"
+                  alt="twitter"
+                  height={40}
+                  width={40}
+                />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ajay-krishna-065a1a162"
+                onClick={() =>
+                  alert('Are You Sure want to leave without logout?')
+                }
+              >
+                <Image
+                  src="/icons8-linkedin-48.png"
+                  alt="linkedin"
+                  height={40}
+                  width={40}
+                />
+              </a>
+            </p>
           </InfoBox>
         </DefaultHome>
       </DefaultContainer>
@@ -98,7 +154,7 @@ const DefaultHome = styled.div`
 `;
 
 const InfoBox = styled.div`
-  height: 50rem;
+  height: 58rem;
   width: 55rem;
   background-color: #99d98c;
   font-weight: 500;

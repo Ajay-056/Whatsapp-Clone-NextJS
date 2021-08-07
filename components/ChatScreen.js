@@ -15,18 +15,20 @@ import getRecipientEmail from '../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-import moment from 'moment';
+// import moment from 'moment';
+import UIfx from 'uifx';
+// import sendMessageMp3 from '../public/send message.mp3';
 
 function ChatScreen({ chat, messages }) {
   let emojiPicker;
 
-  const [tempDate, setTempDate] = useState('');
+  // const [tempDate, setTempDate] = useState('');
 
   const [emojiPickerState, SetEmojiPicker] = useState(false);
 
-  const [temp, setTemp] = useState(false);
+  // const [temp, setTemp] = useState(false);
 
-  const [dual, setDual] = useState('');
+  // const [dual, setDual] = useState('');
 
   const [user] = useAuthState(auth);
 
@@ -65,23 +67,23 @@ function ChatScreen({ chat, messages }) {
     SetEmojiPicker(!emojiPickerState);
   }
 
-  const groupMessageByDate = (messageDate) => {
-    (messageDate) => setTempDate(messageDate);
-    if (tempDate === messageDate) {
-      // console.log(tempDate, messageDate);
-      // console.log('true');
-      return true;
-    } else {
-      // console.log('false');
-      return false;
-    }
-  };
+  // const groupMessageByDate = (messageDate) => {
+  //   (messageDate) => setTempDate(messageDate);
+  //   if (tempDate === messageDate) {
+  //     // console.log(tempDate, messageDate);
+  //     // console.log('true');
+  //     return true;
+  //   } else {
+  //     // console.log('false');
+  //     return false;
+  //   }
+  // };
 
   const showMessages = () => {
     if (messagesSnapshot) {
       return messagesSnapshot.docs.map((message) => (
         <>
-          {groupMessageByDate(
+          {/* {groupMessageByDate(
             moment(message.data().timestamp?.toDate().getTime()).format('LL')
           ) ? (
             <DateIndictor>
@@ -91,7 +93,7 @@ function ChatScreen({ chat, messages }) {
             </DateIndictor>
           ) : (
             ''
-          )}
+          )} */}
 
           <Message
             key={message.id}
@@ -142,19 +144,26 @@ function ChatScreen({ chat, messages }) {
   const recipientEmail = getRecipientEmail(chat.users, user);
   const surname = recipientEmail.split('@');
 
-  const finder = () => {
-    if (messagesSnapshot) {
-      messagesSnapshot.docs.map(
-        (message) => () => setDual(message.data().user)
-      );
-    } else {
-      JSON.parse(messages).map((message) => () => setDual(message.user));
+  // const finder = () => {
+  //   if (messagesSnapshot) {
+  //     messagesSnapshot.docs.map(
+  //       (message) => () => setDual(message.data().user)
+  //     );
+  //   } else {
+  //     JSON.parse(messages).map((message) => () => setDual(message.user));
+  //   }
+  // };
+
+  // finder();
+
+  // const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
+
+  const playMessageSentSound = (e) => {
+    if (e.key === 'Enter') {
+      const sm = new UIfx('/send message.mp3');
+      sm.play();
     }
   };
-
-  finder();
-
-  const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
   return (
     <Container>
@@ -167,9 +176,9 @@ function ChatScreen({ chat, messages }) {
 
         <HeaderInfo>
           <h3>{surname[0]}</h3>
-          <Typing>
+          {/* <Typing>
             {temp === true && TypeOfMessage !== 'Sender' ? 'Typing...' : ''}
-          </Typing>
+          </Typing> */}
           {recipientSnapshot ? (
             <p>
               Last Active:{' '}
@@ -209,8 +218,11 @@ function ChatScreen({ chat, messages }) {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={() => setTemp(true)}
-          onKeyUp={() => setTimeout(() => setTemp(false), 3100)}
+          // onKeyDown={() => setTemp(true)}
+          // onKeyUp={() => setTimeout(() => setTemp(false), 3100)}
+          onKeyPress={(e) => {
+            playMessageSentSound(e);
+          }}
           placeholder="Type a message..."
           autoFocus
         />
