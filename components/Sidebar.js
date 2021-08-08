@@ -59,15 +59,6 @@ function Sidebar() {
     router.push(`/`);
   };
 
-  // const scrollSwitch = () => {
-  //   if (Object.keys(chatSearchObj).length > 6) {
-  //     console.log(Object.keys(chatSearchObj).length);
-  //     return 'hidden';
-  //   } else {
-  //     return 'scroll';
-  //   }
-  // };
-
   const searchChats = (searchTerm) => {
     const LCST = searchTerm.toLowerCase();
 
@@ -156,7 +147,7 @@ const Container = styled.div`
 const Search = styled.div`
   display: flex;
   align-items: center;
-  padding: 2rem;
+  padding: 1.4rem;
   border-radius: 0.2rem;
   background-color: #f1f3f5;
 `;

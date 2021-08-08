@@ -96,6 +96,7 @@ export default function Home() {
             >
               <a
                 href="https://github.com/Ajay-056/Whatsapp-Clone-NextJS"
+                target="_blank noreferrer"
                 onClick={() =>
                   alert('Are You Sure want to leave without logout?')
                 }
@@ -109,6 +110,7 @@ export default function Home() {
               </a>
               <a
                 href="https://www.twitter.com/balaajay19"
+                target="_blank noreferrer"
                 onClick={() =>
                   alert('Are You Sure want to leave without logout?')
                 }
@@ -122,6 +124,7 @@ export default function Home() {
               </a>
               <a
                 href="https://www.linkedin.com/in/ajay-krishna-065a1a162"
+                target="_blank noreferrer"
                 onClick={() =>
                   alert('Are You Sure want to leave without logout?')
                 }

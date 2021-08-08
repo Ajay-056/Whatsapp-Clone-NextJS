@@ -22,20 +22,6 @@ function Chat({ id, users, mh }) {
     router.push(`/chat/${id}`);
   };
 
-  // const openMenu = (e) => {
-  //   var x = e.clientX - e.target.offsetLeft + 10;
-  //   var y = e.clientY - e.target.offsetTop + 10;
-  //   // console.log(e.target);
-  //   const menu = document.querySelector('.mc');
-  //   menu.style.bottom = `${y}px`;
-  //   menu.style.left = `${x}px`;
-  //   if (menu.style.display === 'none') {
-  //     menu.style.display = 'flex';
-  //   } else {
-  //     menu.style.display = 'none';
-  //   }
-  // };
-
   const userChatRef = db
     .collection('users')
     .where('email', '==', getRecipientEmail(users, user));
@@ -68,12 +54,7 @@ function Chat({ id, users, mh }) {
             opacity: '0.6',
           }}
         />
-        {/* onClick={(e) => openMenu(e)} */}
       </ArrowContainer>
-
-      <MenuContainer className="mc">
-        <p>Delete</p>
-      </MenuContainer>
     </Container>
   );
 }
@@ -120,22 +101,6 @@ const ArrowContainer = styled.div`
   width: 2.3rem;
   background-color: #fff;
   border-radius: 50%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-`;
-
-const MenuContainer = styled.div`
-  height: 3rem;
-  width: 8rem;
-  background-color: #fff;
-  padding: 1rem;
-  box-shadow: 0px 4px 10px -3px rgba(0, 0, 0, 0.7);
-  position: absolute;
-  bottom: -2.5rem;
-  right: 1.7rem;
-  border-radius: 0.7rem;
-  z-index: 1000;
   display: none;
   justify-content: center;
   align-items: center;

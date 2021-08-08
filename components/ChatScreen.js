@@ -1,23 +1,22 @@
 import styled from 'styled-components';
 import Message from './Message';
+import TimeAgo from 'timeago-react';
+import firebase from 'firebase';
+import getRecipientEmail from '../utils/getRecipientEmail';
+import 'emoji-mart/css/emoji-mart.css';
+import UIfx from 'uifx';
+// import moment from 'moment';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import MicIcon from '@material-ui/icons/Mic';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 import { useRouter } from 'next/dist/client/router';
 import { Avatar, IconButton } from '@material-ui/core';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import MicIcon from '@material-ui/icons/Mic';
-import firebase from 'firebase';
 import { useState, useRef } from 'react';
-import getRecipientEmail from '../utils/getRecipientEmail';
-import TimeAgo from 'timeago-react';
-import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-// import moment from 'moment';
-import UIfx from 'uifx';
-// import sendMessageMp3 from '../public/send message.mp3';
 
 function ChatScreen({ chat, messages }) {
   let emojiPicker;
@@ -165,6 +164,38 @@ function ChatScreen({ chat, messages }) {
     }
   };
 
+  const openMenu = () => {
+    // var x = e.clientX - e.target.offsetLeft + 10;
+    // var y = e.clientY - e.target.offsetTop + 10;
+    // // console.log(e.target);
+    const menu = document.querySelector('.mc');
+    // menu.style.bottom = `${y}px`;
+    // menu.style.left = `${x}px`;
+    const compStyles = getComputedStyle(menu);
+
+    if (compStyles.display === 'none') {
+      menu.style.display = 'flex';
+      menu.style.justifyContent = 'center';
+      menu.style.alignItems = 'center';
+    } else {
+      menu.style.display = 'none';
+    }
+  };
+
+  const deleteChat = async () => {
+    db.collection('chats')
+      .doc(`${chat.id}`)
+      .delete()
+      .then(() => {
+        // console.log('Document successfully deleted!');
+      })
+      .catch((error) => {
+        alert('Error removing chat: ', error);
+      });
+
+    router.push(`/`);
+  };
+
   return (
     <Container>
       <Header>
@@ -196,7 +227,7 @@ function ChatScreen({ chat, messages }) {
           <IconButton>
             <AttachFileIcon style={{ fontSize: 25 }} />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={openMenu}>
             <MoreVertIcon style={{ fontSize: 25 }} />
           </IconButton>
         </HeaderIcons>
@@ -233,6 +264,9 @@ function ChatScreen({ chat, messages }) {
           <MicIcon style={{ fontSize: 25 }} />
         </IconButton>
       </InputContainer>
+      <MenuContainer className="mc" onClick={deleteChat}>
+        <p>Delete Chat</p>
+      </MenuContainer>
     </Container>
   );
 }
@@ -290,6 +324,7 @@ const MessageContainer = styled.div`
   padding: 3rem;
   background-color: #e5ded8;
   min-height: 90vh;
+  position: relative;
 `;
 
 const InputContainer = styled.form`
@@ -327,4 +362,20 @@ const IconContainer = styled.div`
   top: -45rem;
   left: 2rem;
   right: 0;
+`;
+
+const MenuContainer = styled.div`
+  height: 3rem;
+  width: 11rem;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 1rem;
+  font-size: 1.45rem;
+  z-index: 1000;
+  box-shadow: 0px 4px 10px -3px rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 5.5rem;
+  right: 4.5rem;
+  border-radius: 0.7rem;
+  display: none;
 `;
