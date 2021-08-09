@@ -53,6 +53,7 @@ export default function Home() {
               <li>Chat with individual user</li>
               <li>Send Emoji&apos;s</li>
               <li>Auto scroll to last message</li>
+              <li>Delete Chat</li>
             </ul>
             <h4
               style={{
@@ -75,7 +76,6 @@ export default function Home() {
             >
               <li>Typing Indication</li>
               <li>Date Wise Chat Splitup</li>
-              <li>Delete Chat</li>
               <li>Sort Chat list by recent message</li>
               <li>Mobile version</li>
             </ul>

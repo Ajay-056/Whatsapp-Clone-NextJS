@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import moment from 'moment';
+import UIfx from 'uifx';
 
 function Message({ user, message }) {
   const [userLoggedIn] = useAuthState(auth);
@@ -10,8 +11,10 @@ function Message({ user, message }) {
 
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Reciever;
 
+  const msgt = user === userLoggedIn.email ? 'sender' : 'receiver';
+
   return (
-    <Container>
+    <Container data-msgType={msgt} id="msg">
       <TypeOfMessage>
         {message.message}
         <TimeStamp>
@@ -26,8 +29,10 @@ export default Message;
 
 const Container = styled.div``;
 
-const MessageElement = styled.p`
+const MessageElement = styled.div`
   width: fit-content;
+  max-width: 70ch;
+  line-height: 1.5;
   padding: 1.5rem;
   border-radius: 0.8rem;
   margin: 1rem;
@@ -36,11 +41,13 @@ const MessageElement = styled.p`
   position: relative;
   text-align: right;
   font-size: 1.3rem;
-  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Sender = styled(MessageElement)`
   margin-left: auto;
+  text-align: left;
   background-color: #dcf8c6;
 `;
 

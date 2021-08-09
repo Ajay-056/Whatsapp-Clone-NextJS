@@ -29,6 +29,8 @@ function ChatScreen({ chat, messages }) {
 
   // const [dual, setDual] = useState('');
 
+  // const [nodeLength, setNodeLength] = useState();
+
   const [user] = useAuthState(auth);
 
   const [input, setInput] = useState('');
@@ -64,6 +66,11 @@ function ChatScreen({ chat, messages }) {
   function triggerPicker(event) {
     event.preventDefault();
     SetEmojiPicker(!emojiPickerState);
+    if (emojiPickerState) {
+      document.getElementById('inputField').focus();
+    } else {
+      document.getElementById('inputField').blur();
+    }
   }
 
   // const groupMessageByDate = (messageDate) => {
@@ -158,7 +165,7 @@ function ChatScreen({ chat, messages }) {
   // const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
   const playMessageSentSound = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && e.target.value !== '') {
       const sm = new UIfx('/send message.mp3');
       sm.play();
     }
@@ -195,6 +202,13 @@ function ChatScreen({ chat, messages }) {
 
     router.push(`/`);
   };
+
+  // () => {
+  //   if (document.querySelectorAll('#msg').length > nodeLength) {
+  //     const sm = new UIfx('/receive message.mp3');
+  //     sm.play();
+  //   }
+  // };
 
   return (
     <Container>
@@ -247,6 +261,7 @@ function ChatScreen({ chat, messages }) {
           />
         </IconButton>
         <Input
+          id="inputField"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           // onKeyDown={() => setTemp(true)}

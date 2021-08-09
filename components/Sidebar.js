@@ -77,7 +77,7 @@ function Sidebar() {
     <Container>
       <Header>
         <UserAvatar src={user.photoURL} />
-        <h3 style={{ fontSize: 17, color: '#495057' }}>{user?.displayName}</h3>
+        {/* <h3 style={{ fontSize: 17, color: '#495057' }}>{user?.displayName}</h3> */}
         <IconsContainer>
           <IconButton onClick={goToHome}>
             <HomeOutlinedIcon style={{ fontSize: 25 }} />
@@ -85,7 +85,12 @@ function Sidebar() {
           {/* <IconButton>
             <MoreVertIcon style={{ fontSize: 22 }} />
           </IconButton> */}
-          <IconButton onClick={() => auth.signOut()}>
+          <IconButton
+            onClick={() => {
+              auth.signOut();
+              router.push('/');
+            }}
+          >
             <ExitToAppIcon style={{ fontSize: 25 }} />
           </IconButton>
         </IconsContainer>
@@ -132,7 +137,7 @@ const Container = styled.div`
   border-right: 2.5px solid whitesmoke;
   height: 100vh;
   min-width: 30rem;
-  max-width: 35rem;
+  max-width: 40rem;
   overflow-y: hidden;
   position: relative;
 
