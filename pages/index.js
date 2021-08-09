@@ -50,10 +50,19 @@ export default function Home() {
               <li>Login & Logout</li>
               <li>Add Chat</li>
               <li>Search Chat</li>
+              <li>Delete Chat</li>
               <li>Chat with individual user</li>
               <li>Send Emoji&apos;s</li>
               <li>Auto scroll to last message</li>
-              <li>Delete Chat</li>
+              <li>
+                <a
+                  href="https://github.com/Ajay-056/Whatsapp-Clone-NextJS/tags"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Click here to see the release change log...
+                </a>
+              </li>
             </ul>
             <h4
               style={{
@@ -157,8 +166,8 @@ const DefaultHome = styled.div`
 `;
 
 const InfoBox = styled.div`
-  height: 58rem;
-  width: 55rem;
+  height: 60rem;
+  width: 56rem;
   background-color: #99d98c;
   font-weight: 500;
   font-size: 1.4rem;
