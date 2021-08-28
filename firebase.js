@@ -1,7 +1,5 @@
 import firebase from 'firebase';
 
-// require('dotenv').config({ path: './config.env' });
-
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,

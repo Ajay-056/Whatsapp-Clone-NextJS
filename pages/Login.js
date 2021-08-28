@@ -13,7 +13,7 @@ function Login() {
   return (
     <Container>
       <Head>
-        <title>Login</title>
+        <title>Login | Whatsapp Clone</title>
       </Head>
 
       <LoginContainer>
@@ -23,6 +23,33 @@ function Login() {
           <ButtonText>SignIn with Google</ButtonText>
         </Button>
       </LoginContainer>
+      <SocialContainer>
+        <a
+          href="https://github.com/Ajay-056/Whatsapp-Clone-NextJS"
+          target="_blank noreferrer"
+        >
+          <Image src="/icons8-github.svg" alt="github" height={40} width={40} />
+        </a>
+        <a href="https://www.twitter.com/balaajay19" target="_blank noreferrer">
+          <Image
+            src="/icons8-twitter-48.png"
+            alt="twitter"
+            height={40}
+            width={40}
+          />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/ajay-krishna-065a1a162"
+          target="_blank noreferrer"
+        >
+          <Image
+            src="/icons8-linkedin-48.png"
+            alt="linkedin"
+            height={40}
+            width={40}
+          />
+        </a>
+      </SocialContainer>
     </Container>
   );
 }
@@ -30,10 +57,17 @@ function Login() {
 export default Login;
 
 const Container = styled.div`
+  /* display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: whitesmoke; */
   display: grid;
   place-items: center;
   height: 100vh;
   background-color: whitesmoke;
+  align-content: center;
+  justify-items: stretch;
+  justify-content: center;
 `;
 
 const LoginContainer = styled.div`
@@ -56,4 +90,15 @@ const Logo = styled.img`
   height: 20rem;
   width: 20rem;
   margin-bottom: 5rem;
+`;
+
+const SocialContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
 `;

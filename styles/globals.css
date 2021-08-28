@@ -25,3 +25,60 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.card {
+  -moz-perspective: 160rem;
+  perspective: 160rem;
+  position: relative;
+  height: 60rem;
+  width: 56rem;
+}
+.card__side {
+  height: 60rem;
+  transition: all 0.8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+  background-color: #99d98c;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.card__side--front {
+}
+
+.card__side--back {
+  transform: rotateY(180deg);
+  position: relative;
+}
+.card:hover .card__side--front {
+  /* transform: rotateY(-180deg); */
+}
+.card:hover .card__side--back {
+  /* transform: rotateY(0); */
+}
+
+.backtofront {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  height: 4.2rem;
+  width: 4.2rem;
+  background-color: ghostwhite;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.85);
+}

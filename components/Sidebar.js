@@ -106,7 +106,7 @@ function Sidebar() {
       </Search>
 
       <ChatList
-        style={Object.keys(chatSearchObj).length > 6 ? yscroll : yhidden}
+      // style={Object.keys(chatSearchObj).length > 6 ? yscroll : yhidden}
       >
         {/* List of Chats */}
         {chatsSnapshot?.docs.map((chat) => (
@@ -185,6 +185,8 @@ const SearchInput = styled.input`
 
 const ChatList = styled.div`
   height: calc(100vh - 147.6px);
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const Header = styled.div`
@@ -200,13 +202,7 @@ const Header = styled.div`
   border-bottom: 2.5px solid whitesmoke;
 `;
 
-const UserAvatar = styled(Avatar)`
-  cursor: pointer;
-
-  :hover {
-    opacity: 0.8;
-  }
-`;
+const UserAvatar = styled(Avatar)``;
 
 const IconsContainer = styled.div``;
 
