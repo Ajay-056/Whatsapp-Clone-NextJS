@@ -7,6 +7,7 @@ import 'emoji-mart/css/emoji-mart.css';
 import UIfx from 'uifx';
 // import moment from 'moment';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MicIcon from '@material-ui/icons/Mic';
@@ -20,6 +21,8 @@ import { Picker } from 'emoji-mart';
 
 function ChatScreen({ chat, messages }) {
   let emojiPicker;
+
+  const inputElement = document.getElementById('inputField');
 
   // const [tempDate, setTempDate] = useState('');
 
@@ -141,7 +144,7 @@ function ChatScreen({ chat, messages }) {
       user: user.email,
       photoURL: user.photoURL,
     });
-
+    playMessageSentSound();
     setInput('');
     scrollToBottom();
   };
@@ -164,11 +167,9 @@ function ChatScreen({ chat, messages }) {
 
   // const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
-  const playMessageSentSound = (e) => {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      const sm = new UIfx('/send message.mp3');
-      sm.play();
-    }
+  const playMessageSentSound = () => {
+    const sm = new UIfx('/send message.mp3');
+    sm.play();
   };
 
   const openMenu = () => {
@@ -209,6 +210,32 @@ function ChatScreen({ chat, messages }) {
   //     sm.play();
   //   }
   // };
+
+  // const checkLength_and_CreateNewLine = (typeTerm) => {
+  //   if (typeTerm.length > 75) {
+  //     const inputElement = document.getElementById('inputField');
+  //     inputElement.value = typeTerm + '\n';
+  //     console.log(inputElement.value);
+  //   }
+  // };
+
+  const startListening = () => {
+    window.SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    let recognition = new window.SpeechRecognition();
+
+    recognition.start();
+
+    recognition.addEventListener('result', onSpeak);
+
+    function onSpeak(e) {
+      const msg = e.results[0][0].transcript;
+      inputElement.value += msg;
+    }
+
+    recognition.addEventListener('end', () => recognition.start());
+  };
 
   return (
     <Container>
@@ -261,23 +288,28 @@ function ChatScreen({ chat, messages }) {
           />
         </IconButton>
         <Input
+          // maxLength="75"
           id="inputField"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           // onKeyDown={() => setTemp(true)}
           // onKeyUp={() => setTimeout(() => setTemp(false), 3100)}
-          onKeyPress={(e) => {
-            playMessageSentSound(e);
-          }}
+          // onKeyDown={(e) => checkLength_and_CreateNewLine(e.target.value)}
           placeholder="Type a message..."
           autoFocus
         />
         <button hidden disabled={!input} type="submit" onClick={sendMessage}>
           Send Message
         </button>
-        <IconButton>
-          <MicIcon style={{ fontSize: 25 }} />
-        </IconButton>
+        {input == '' ? (
+          <IconButton onClick={startListening}>
+            <MicIcon style={{ fontSize: 25 }} />{' '}
+          </IconButton>
+        ) : (
+          <IconButton onClick={sendMessage}>
+            <SendRoundedIcon style={{ fontSize: 25 }} />
+          </IconButton>
+        )}
       </InputContainer>
       <MenuContainer className="mc" onClick={deleteChat}>
         <p>Delete Chat</p>
@@ -358,11 +390,12 @@ const Input = styled.input`
   outline: none;
   border-radius: 3rem;
   align-items: center;
-  padding: 1.3rem;
+  padding: 1.3rem 3rem 1.3rem 1.3rem;
   font-size: 1.55rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   background-color: whitesmoke;
+  inline-size: min-content;
 `;
 
 const Typing = styled.div`

@@ -49,19 +49,15 @@ a {
   font-weight: 500;
   font-size: 1.4rem;
 }
-.card__side--front {
-}
+/* .card__side--front {
+} */
 
 .card__side--back {
   transform: rotateY(180deg);
   position: relative;
 }
-.card:hover .card__side--front {
-  /* transform: rotateY(-180deg); */
-}
-.card:hover .card__side--back {
-  /* transform: rotateY(0); */
-}
+/* .card:hover .card__side--front
+.card:hover .card__side--back */
 
 .backtofront {
   position: absolute;
