@@ -7,6 +7,7 @@ import 'emoji-mart/css/emoji-mart.css';
 import UIfx from 'uifx';
 // import moment from 'moment';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -20,6 +21,11 @@ import { useState, useRef } from 'react';
 import { Picker } from 'emoji-mart';
 
 function ChatScreen({ chat, messages }) {
+  window.SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  let recognition = new window.SpeechRecognition();
+
   let emojiPicker;
 
   const inputElement = document.getElementById('inputField');
@@ -220,12 +226,9 @@ function ChatScreen({ chat, messages }) {
   // };
 
   const startListening = () => {
-    window.SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    let recognition = new window.SpeechRecognition();
-
     recognition.start();
+
+    document.getElementById('stopper').style.display = 'block';
 
     recognition.addEventListener('result', onSpeak);
 
@@ -234,7 +237,12 @@ function ChatScreen({ chat, messages }) {
       inputElement.value += msg;
     }
 
-    recognition.addEventListener('end', () => recognition.start());
+    recognition.addEventListener('onspeechend', () => recognition.end());
+  };
+
+  const stopListening = () => {
+    recognition.stop();
+    document.getElementById('stopper').style.display = 'none';
   };
 
   return (
@@ -302,9 +310,18 @@ function ChatScreen({ chat, messages }) {
           Send Message
         </button>
         {input == '' ? (
-          <IconButton onClick={startListening}>
-            <MicIcon style={{ fontSize: 25 }} />{' '}
-          </IconButton>
+          <>
+            <IconButton onClick={startListening}>
+              <MicIcon style={{ fontSize: 25 }} />{' '}
+            </IconButton>
+            <IconButton
+              onClick={stopListening}
+              style={{ display: 'none' }}
+              id="stopper"
+            >
+              <StopRoundedIcon style={{ fontSize: 25 }} />{' '}
+            </IconButton>
+          </>
         ) : (
           <IconButton onClick={sendMessage}>
             <SendRoundedIcon style={{ fontSize: 25 }} />
