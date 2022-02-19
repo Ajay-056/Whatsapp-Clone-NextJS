@@ -17,7 +17,7 @@
     "fibers": "5.0.0",
     "firebase": "^8.7.1",
     "moment": "^2.29.1",
-    "next": "12.0.9",
+    "next": "12.1.0",
     "node-sass": "7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
