@@ -1,24 +1,26 @@
-import styled from 'styled-components';
-import Message from './Message';
-import TimeAgo from 'timeago-react';
-import firebase from 'firebase';
-import getRecipientEmail from '../utils/getRecipientEmail';
-import 'emoji-mart/css/emoji-mart.css';
-import UIfx from 'uifx';
+import styled from "styled-components";
+import Message from "./Message";
+import TimeAgo from "timeago-react";
+import firebase from "firebase";
+import getRecipientEmail from "../utils/getRecipientEmail";
+import "emoji-mart/css/emoji-mart.css";
+import UIfx from "uifx";
 // import moment from 'moment';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import StopRoundedIcon from '@material-ui/icons/StopRounded';
-import SendRoundedIcon from '@material-ui/icons/SendRounded';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import MicIcon from '@material-ui/icons/Mic';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { auth, db } from '../firebase';
-import { useRouter } from 'next/dist/client/router';
-import { Avatar, IconButton } from '@material-ui/core';
-import { useState, useRef } from 'react';
-import { Picker } from 'emoji-mart';
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import StopRoundedIcon from "@material-ui/icons/StopRounded";
+import SendRoundedIcon from "@material-ui/icons/SendRounded";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AttachFileIcon from "@material-ui/icons/AttachFile";
+import MicIcon from "@material-ui/icons/Mic";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { auth, db } from "../firebase";
+import { useRouter } from "next/dist/client/router";
+import { Avatar, IconButton } from "@material-ui/core";
+import { useState, useRef } from "react";
+import { Picker } from "emoji-mart";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import Router from "next/router";
 
 function ChatScreen({ chat, messages }) {
   window.SpeechRecognition =
@@ -28,7 +30,7 @@ function ChatScreen({ chat, messages }) {
 
   let emojiPicker;
 
-  const inputElement = document.getElementById('inputField');
+  const inputElement = document.getElementById("inputField");
 
   // const [tempDate, setTempDate] = useState('');
 
@@ -42,7 +44,7 @@ function ChatScreen({ chat, messages }) {
 
   const [user] = useAuthState(auth);
 
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const endOfMessagesRef = useRef(null);
 
@@ -50,16 +52,16 @@ function ChatScreen({ chat, messages }) {
 
   const [messagesSnapshot] = useCollection(
     db
-      .collection('chats')
+      .collection("chats")
       .doc(router.query.id)
-      .collection('messages')
-      .orderBy('timestamp', 'asc')
+      .collection("messages")
+      .orderBy("timestamp", "asc")
   );
 
   const [recipientSnapshot] = useCollection(
     db
-      .collection('users')
-      .where('email', '==', getRecipientEmail(chat.users, user))
+      .collection("users")
+      .where("email", "==", getRecipientEmail(chat.users, user))
   );
 
   if (emojiPickerState) {
@@ -76,9 +78,9 @@ function ChatScreen({ chat, messages }) {
     event.preventDefault();
     SetEmojiPicker(!emojiPickerState);
     if (emojiPickerState) {
-      document.getElementById('inputField').focus();
+      document.getElementById("inputField").focus();
     } else {
-      document.getElementById('inputField').blur();
+      document.getElementById("inputField").blur();
     }
   }
 
@@ -129,35 +131,35 @@ function ChatScreen({ chat, messages }) {
 
   const scrollToBottom = () => {
     endOfMessagesRef.current.scrollIntoView({
-      behaviour: 'smooth',
-      block: 'start',
+      behaviour: "smooth",
+      block: "start",
     });
   };
 
   const sendMessage = (e) => {
     e.preventDefault();
 
-    db.collection('users').doc(user.uid).set(
+    db.collection("users").doc(user.uid).set(
       {
         lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
       },
       { merge: true }
     );
 
-    db.collection('chats').doc(router.query.id).collection('messages').add({
+    db.collection("chats").doc(router.query.id).collection("messages").add({
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: input,
       user: user.email,
       photoURL: user.photoURL,
     });
     playMessageSentSound();
-    setInput('');
+    setInput("");
     scrollToBottom();
   };
 
   const recipient = recipientSnapshot?.docs?.[0]?.data();
   const recipientEmail = getRecipientEmail(chat.users, user);
-  const surname = recipientEmail.split('@');
+  const surname = recipientEmail.split("@");
 
   // const finder = () => {
   //   if (messagesSnapshot) {
@@ -174,7 +176,7 @@ function ChatScreen({ chat, messages }) {
   // const TypeOfMessage = dual !== user.email ? 'Sender' : 'Reciever';
 
   const playMessageSentSound = () => {
-    const sm = new UIfx('/send message.mp3');
+    const sm = new UIfx("/send message.mp3");
     sm.play();
   };
 
@@ -182,29 +184,29 @@ function ChatScreen({ chat, messages }) {
     // var x = e.clientX - e.target.offsetLeft + 10;
     // var y = e.clientY - e.target.offsetTop + 10;
     // // console.log(e.target);
-    const menu = document.querySelector('.mc');
+    const menu = document.querySelector(".mc");
     // menu.style.bottom = `${y}px`;
     // menu.style.left = `${x}px`;
     const compStyles = getComputedStyle(menu);
 
-    if (compStyles.display === 'none') {
-      menu.style.display = 'flex';
-      menu.style.justifyContent = 'center';
-      menu.style.alignItems = 'center';
+    if (compStyles.display === "none") {
+      menu.style.display = "flex";
+      menu.style.justifyContent = "center";
+      menu.style.alignItems = "center";
     } else {
-      menu.style.display = 'none';
+      menu.style.display = "none";
     }
   };
 
   const deleteChat = async () => {
-    db.collection('chats')
+    db.collection("chats")
       .doc(`${chat.id}`)
       .delete()
       .then(() => {
         // console.log('Document successfully deleted!');
       })
       .catch((error) => {
-        alert('Error removing chat: ', error);
+        alert("Error removing chat: ", error);
       });
 
     router.push(`/`);
@@ -228,21 +230,21 @@ function ChatScreen({ chat, messages }) {
   const startListening = () => {
     recognition.start();
 
-    document.getElementById('stopper').style.display = 'block';
+    document.getElementById("stopper").style.display = "block";
 
-    recognition.addEventListener('result', onSpeak);
+    recognition.addEventListener("result", onSpeak);
 
     function onSpeak(e) {
       const msg = e.results[0][0].transcript;
       inputElement.value += msg;
     }
 
-    recognition.addEventListener('onspeechend', () => recognition.end());
+    recognition.addEventListener("onspeechend", () => recognition.end());
   };
 
   const stopListening = () => {
     recognition.stop();
-    document.getElementById('stopper').style.display = 'none';
+    document.getElementById("stopper").style.display = "none";
   };
 
   return (
@@ -261,11 +263,11 @@ function ChatScreen({ chat, messages }) {
           </Typing> */}
           {recipientSnapshot ? (
             <p>
-              Last Active:{' '}
+              Last Active:{" "}
               {recipient?.lastSeen?.toDate() ? (
                 <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
               ) : (
-                'Unavailable'
+                "Unavailable"
               )}
             </p>
           ) : (
@@ -273,6 +275,13 @@ function ChatScreen({ chat, messages }) {
           )}
         </HeaderInfo>
         <HeaderIcons>
+          <IconButton
+            onClick={() => {
+              Router.replace("/");
+            }}
+          >
+            <HomeOutlinedIcon style={{ fontSize: 25 }} />
+          </IconButton>
           <IconButton>
             <AttachFileIcon style={{ fontSize: 25 }} />
           </IconButton>
@@ -309,17 +318,17 @@ function ChatScreen({ chat, messages }) {
         <button hidden disabled={!input} type="submit" onClick={sendMessage}>
           Send Message
         </button>
-        {input == '' ? (
+        {input == "" ? (
           <>
             <IconButton onClick={startListening}>
-              <MicIcon style={{ fontSize: 25 }} />{' '}
+              <MicIcon style={{ fontSize: 25 }} />{" "}
             </IconButton>
             <IconButton
               onClick={stopListening}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="stopper"
             >
-              <StopRoundedIcon style={{ fontSize: 25 }} />{' '}
+              <StopRoundedIcon style={{ fontSize: 25 }} />{" "}
             </IconButton>
           </>
         ) : (

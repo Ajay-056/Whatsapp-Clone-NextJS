@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 * {
   margin: 0;
@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 a {
@@ -77,4 +77,10 @@ a {
 
 .btn:active {
   transform: scale(0.85);
+}
+
+@media screen and (max-width: 768px) {
+  .mdHidden {
+    display: none;
+  }
 }

@@ -1,23 +1,23 @@
-import Head from 'next/head';
-import Sidebar from '../components/Sidebar';
-import styled from 'styled-components';
-import Image from 'next/image';
+import Head from "next/head";
+import Sidebar from "../components/Sidebar";
+import styled from "styled-components";
+import Image from "next/image";
 
 export default function Home() {
   const rotateCardBack = () => {
-    const back = document.getElementById('back');
-    const front = document.getElementById('front');
+    const back = document.getElementById("back");
+    const front = document.getElementById("front");
 
     front.style.transform = `rotateY(-180deg)`;
-    back.style.transform = 'rotateY(0)';
+    back.style.transform = "rotateY(0)";
   };
 
   const rotateCardFront = () => {
-    const back = document.getElementById('back');
-    const front = document.getElementById('front');
+    const back = document.getElementById("back");
+    const front = document.getElementById("front");
 
     front.style.transform = `rotateY(0)`;
-    back.style.transform = 'rotateY(-180deg)';
+    back.style.transform = "rotateY(-180deg)";
   };
 
   return (
@@ -29,19 +29,19 @@ export default function Home() {
       </Head>
       <DefaultContainer>
         <Sidebar />
-        <DefaultHome>
-          <div className="card">
+        <DefaultHome className="mdHidden">
+          <div className="card mdHidden">
             <div className="card__side  card__side--back" id="back">
               <div className="backtofront" onClick={rotateCardFront}>
                 &larr;
               </div>
               <h4
                 style={{
-                  margin: '8rem 3rem 0 3rem',
-                  fontSize: '2rem',
-                  borderBottom: '1px solid gray',
-                  paddingBottom: '.7rem',
-                  letterSpacing: '.6px',
+                  margin: "8rem 3rem 0 3rem",
+                  fontSize: "2rem",
+                  borderBottom: "1px solid gray",
+                  paddingBottom: ".7rem",
+                  letterSpacing: ".6px",
                 }}
               >
                 Current Features :
@@ -49,8 +49,8 @@ export default function Home() {
               <ul
                 style={{
                   fontSize: 15.5,
-                  color: '#343A40',
-                  margin: '1.5rem 0 0 5.5rem',
+                  color: "#343A40",
+                  margin: "1.5rem 0 0 5.5rem",
                   lineHeight: 1.6,
                 }}
               >
@@ -73,11 +73,11 @@ export default function Home() {
               </ul>
               <h4
                 style={{
-                  margin: '2.5rem 3rem 0 3rem',
-                  fontSize: '2rem',
-                  borderBottom: '1px solid gray',
-                  paddingBottom: '.7rem',
-                  letterSpacing: '.6px',
+                  margin: "2.5rem 3rem 0 3rem",
+                  fontSize: "2rem",
+                  borderBottom: "1px solid gray",
+                  paddingBottom: ".7rem",
+                  letterSpacing: ".6px",
                 }}
               >
                 Upcoming Features :
@@ -85,8 +85,8 @@ export default function Home() {
               <ul
                 style={{
                   fontSize: 15.5,
-                  color: '#343A40',
-                  margin: '1.5rem 0 0 5.5rem',
+                  color: "#343A40",
+                  margin: "1.5rem 0 0 5.5rem",
                   lineHeight: 1.6,
                 }}
               >
@@ -97,17 +97,17 @@ export default function Home() {
               </ul>
               <p
                 style={{
-                  borderBottom: '1px solid gray',
-                  margin: '2.5rem 3rem 0 3rem',
+                  borderBottom: "1px solid gray",
+                  margin: "2.5rem 3rem 0 3rem",
                 }}
               ></p>
               <p
                 style={{
-                  textAlign: 'center',
-                  display: 'flex',
-                  marginTop: '1rem',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
+                  textAlign: "center",
+                  display: "flex",
+                  marginTop: "1rem",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
               >
                 <a
@@ -148,14 +148,14 @@ export default function Home() {
             <div className="card__side card__side--front" id="front">
               <h3
                 style={{
-                  margin: '2rem 15rem -13px 15rem',
-                  fontSize: '2.5rem',
-                  border: '3.5px solid',
+                  margin: "2rem 15rem -13px 15rem",
+                  fontSize: "2.5rem",
+                  border: "3.5px solid",
                   borderImageSlice: 1,
                   borderImageSource:
-                    'linear-gradient(to left, #743ad5, #d53a9d)',
-                  display: 'inline-block',
-                  padding: '.6rem',
+                    "linear-gradient(to left, #743ad5, #d53a9d)",
+                  display: "inline-block",
+                  padding: ".6rem",
                 }}
               >
                 Hi There ! 👋👋👋
@@ -163,56 +163,56 @@ export default function Home() {
 
               <p
                 style={{
-                  margin: '5rem 3rem 2rem 3rem',
-                  letterSpacing: '0px',
-                  fontSize: '1.6rem',
+                  margin: "5rem 3rem 2rem 3rem",
+                  letterSpacing: "0px",
+                  fontSize: "1.6rem",
                   lineHeight: 1.5,
-                  color: '#212529',
-                  textAlign: 'left',
+                  color: "#212529",
+                  textAlign: "left",
                 }}
               >
                 Welcome to the Whatsapp clone made from Next JS, React JS and
-                Firebase. This was originally developed by{' '}
+                Firebase. This was originally developed by{" "}
                 <a
                   href="https://www.youtube.com/user/ssangha32"
                   rel="noreferrer"
                   target="_blank"
-                  style={{ color: '#006aff', cursor: 'pointer' }}
+                  style={{ color: "#006aff", cursor: "pointer" }}
                 >
                   @Sonny Sangha
-                </a>{' '}
+                </a>{" "}
                 and enhanced by me further.
               </p>
               <p
                 style={{
-                  margin: '2rem 3rem 2rem 3rem',
-                  fontSize: '1.6rem',
-                  letterSpacing: '0px',
+                  margin: "2rem 3rem 2rem 3rem",
+                  fontSize: "1.6rem",
+                  letterSpacing: "0px",
                   lineHeight: 1.5,
-                  color: '#212529',
-                  textAlign: 'left',
+                  color: "#212529",
+                  textAlign: "left",
                 }}
               >
                 Checkout the other clone&apos;s developed by Sonny Sangha
                 he&apos;s really cool. To view the Initial and original version
-                inspired from Sonny Sangha{' '}
+                inspired from Sonny Sangha{" "}
                 <a
                   href="https://baseline-whatsapp-clone-next-js.vercel.app/"
                   target="_blank"
                   rel="noreferrer"
-                  style={{ color: '#006aff', cursor: 'pointer' }}
+                  style={{ color: "#006aff", cursor: "pointer" }}
                 >
                   Click here. . .
-                </a>{' '}
+                </a>{" "}
               </p>
               <p
                 style={{
-                  margin: '2rem 3rem 2rem 3rem',
-                  fontSize: '1.6rem',
-                  letterSpacing: '0px',
+                  margin: "2rem 3rem 2rem 3rem",
+                  fontSize: "1.6rem",
+                  letterSpacing: "0px",
                   lineHeight: 1.5,
-                  color: '#212529',
-                  textAlign: 'left',
+                  color: "#212529",
+                  textAlign: "left",
                 }}
               >
                 The main intention for me to create this project is for learning
@@ -221,12 +221,12 @@ export default function Home() {
               </p>
               <p
                 style={{
-                  margin: '2rem 3rem 2rem 3rem',
-                  fontSize: '1.6rem',
-                  letterSpacing: '0px',
+                  margin: "2rem 3rem 2rem 3rem",
+                  fontSize: "1.6rem",
+                  letterSpacing: "0px",
                   lineHeight: 1.5,
-                  color: '#212529',
-                  textAlign: 'left',
+                  color: "#212529",
+                  textAlign: "left",
                 }}
               >
                 Im enhancing this regulary on weekends. Hope you like this.
@@ -235,10 +235,10 @@ export default function Home() {
               </p>
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: '5rem',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: "5rem",
                 }}
               >
                 <button
@@ -246,14 +246,14 @@ export default function Home() {
                   className="btn"
                   onClick={rotateCardBack}
                   style={{
-                    padding: '1.2rem 2rem',
-                    backgroundColor: 'rebeccapurple',
-                    border: '0px',
+                    padding: "1.2rem 2rem",
+                    backgroundColor: "rebeccapurple",
+                    border: "0px",
                     outline: 0,
-                    color: '#fff',
-                    borderRadius: '5px',
-                    fontSize: '1.7rem',
-                    cursor: 'pointer',
+                    color: "#fff",
+                    borderRadius: "5px",
+                    fontSize: "1.7rem",
+                    cursor: "pointer",
                   }}
                 >
                   Know More &rarr;
