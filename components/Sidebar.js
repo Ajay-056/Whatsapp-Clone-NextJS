@@ -1,36 +1,36 @@
-import { Avatar, IconButton } from '@material-ui/core';
-import styled from 'styled-components';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import { Avatar, IconButton } from "@material-ui/core";
+import styled from "styled-components";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SearchIcon from '@material-ui/icons/Search';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import * as EmailValidator from 'email-validator';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { auth, db } from '../firebase';
-import Chat from './Chat';
-import { useRouter } from 'next/dist/client/router';
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
-import getRecipientEmail from '../utils/getRecipientEmail';
-import { useState } from 'react';
+import SearchIcon from "@material-ui/icons/Search";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import * as EmailValidator from "email-validator";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { auth, db } from "../firebase";
+import Chat from "./Chat";
+import { useRouter } from "next/dist/client/router";
+import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+import getRecipientEmail from "../utils/getRecipientEmail";
+import { useState } from "react";
 
 function Sidebar() {
   const [user] = useAuthState(auth);
 
-  const [match, setMatch] = useState('');
+  const [match, setMatch] = useState("");
 
   const router = useRouter();
 
   const chatSearchObj = {};
 
   const userChatRef = db
-    .collection('chats')
-    .where('users', 'array-contains', user.email);
+    .collection("chats")
+    .where("users", "array-contains", user.email);
 
   const [chatsSnapshot] = useCollection(userChatRef);
 
   const createChat = () => {
-    const userEmailInput = prompt('Enter the gmail of the user to chat with: ');
+    const userEmailInput = prompt("Enter the gmail of the user to chat with: ");
 
     if (!userEmailInput) return null;
 
@@ -39,7 +39,7 @@ function Sidebar() {
       !chatAlreadyExsists(userEmailInput) &&
       userEmailInput !== user.email
     ) {
-      db.collection('chats').add({
+      db.collection("chats").add({
         users: [user.email, userEmailInput],
       });
     }
@@ -88,7 +88,7 @@ function Sidebar() {
           <IconButton
             onClick={() => {
               auth.signOut();
-              router.push('/');
+              router.push("/");
             }}
           >
             <ExitToAppIcon style={{ fontSize: 25 }} />
@@ -97,7 +97,7 @@ function Sidebar() {
       </Header>
 
       <Search>
-        <SearchIcon style={{ fontSize: 22, marginRight: '1rem' }} />
+        <SearchIcon style={{ fontSize: 22, marginRight: "1rem" }} />
         <SearchInput
           placeholder="Search for chats..."
           onInput={(e) => searchChats(e.target.value)}
@@ -121,7 +121,7 @@ function Sidebar() {
       <SidebarButton>
         {/* <IconButton> */}
         <AddCircleRoundedIcon
-          style={{ fontSize: 58, color: '#25D366' }}
+          style={{ fontSize: 58, color: "#25D366" }}
           onClick={createChat}
         />
         {/* </IconButton> */}
@@ -140,6 +140,11 @@ const Container = styled.div`
   max-width: 40rem;
   overflow-y: hidden;
   position: relative;
+
+  @media (max-width: 768px) {
+    min-width: 100vw;
+    max-width: 100vw;
+  }
 
   ::-webkit-scrollbar {
     display: none;
@@ -207,9 +212,9 @@ const UserAvatar = styled(Avatar)``;
 const IconsContainer = styled.div``;
 
 const yhidden = {
-  overflowY: 'hidden',
+  overflowY: "hidden",
 };
 
 const yscroll = {
-  overflowY: 'scroll',
+  overflowY: "scroll",
 };
