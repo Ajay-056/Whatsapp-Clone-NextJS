@@ -79,9 +79,11 @@ function Sidebar() {
         <UserAvatar src={user.photoURL} />
         {/* <h3 style={{ fontSize: 17, color: '#495057' }}>{user?.displayName}</h3> */}
         <IconsContainer>
-          <IconButton onClick={goToHome}>
-            <HomeOutlinedIcon style={{ fontSize: 25 }} />
-          </IconButton>
+          <div className="mdShow">
+            <IconButton onClick={goToHome}>
+              <HomeOutlinedIcon style={{ fontSize: 25 }} />
+            </IconButton>
+          </div>
           {/* <IconButton>
             <MoreVertIcon style={{ fontSize: 22 }} />
           </IconButton> */}
@@ -209,7 +211,9 @@ const Header = styled.div`
 
 const UserAvatar = styled(Avatar)``;
 
-const IconsContainer = styled.div``;
+const IconsContainer = styled.div`
+  display: flex;
+`;
 
 const yhidden = {
   overflowY: "hidden",
