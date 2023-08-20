@@ -15,7 +15,7 @@
     "email-validator": "^2.0.4",
     "emoji-mart": "^3.0.1",
     "fibers": "5.0.3",
-    "firebase": "^8.7.1",
+    "firebase": "^10.2.0",
     "moment": "^2.29.1",
     "next": "12.3.1",
     "node-sass": "7.0.2",
