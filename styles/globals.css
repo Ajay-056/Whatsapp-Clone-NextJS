@@ -9,6 +9,12 @@
 *::after,
 *::before {
   box-sizing: inherit;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html {
@@ -81,6 +87,12 @@ a {
 
 @media screen and (max-width: 768px) {
   .mdHidden {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mdShow {
     display: none;
   }
 }
